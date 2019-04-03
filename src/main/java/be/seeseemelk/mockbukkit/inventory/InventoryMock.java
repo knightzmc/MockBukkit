@@ -8,10 +8,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -330,14 +327,16 @@ public abstract class InventoryMock implements org.bukkit.inventory.Inventory {
 
     @Override
     public List<HumanEntity> getViewers() {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
+        return new ArrayList<>();
+//         TODO Auto-generated method stub
+//        throw new UnimplementedOperationException();
     }
 
     @Override
     public ListIterator<ItemStack> iterator(int index) {
+        return Arrays.asList(items).listIterator();
         // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
+//        throw new UnimplementedOperationException();
     }
 
     @Override
