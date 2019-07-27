@@ -49,6 +49,18 @@ public class ItemMetaMock implements ItemMeta, Damageable {
     }
 
     @Override
+    public String toString() {
+        return "ItemMetaMock{" +
+                "displayName='" + displayName + '\'' +
+                ", lore=" + lore +
+                ", damage=" + damage +
+                ", enchants=" + enchants +
+                ", hideFlags=" + hideFlags +
+                ", unbreakable=" + unbreakable +
+                '}';
+    }
+
+    @Override
     public boolean hasDisplayName() {
         return nonNull(displayName);
     }
