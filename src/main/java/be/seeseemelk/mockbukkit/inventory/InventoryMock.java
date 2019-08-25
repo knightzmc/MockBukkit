@@ -20,6 +20,7 @@ public abstract class InventoryMock implements org.bukkit.inventory.Inventory {
     private final String name;
     private final InventoryHolder holder;
     private final InventoryType type;
+    private int maxStackSize = 64;
 
     public InventoryMock(InventoryHolder holder, String name, int size, InventoryType type) {
         this.holder = holder;
@@ -209,14 +210,12 @@ public abstract class InventoryMock implements org.bukkit.inventory.Inventory {
 
     @Override
     public int getMaxStackSize() {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
+        return maxStackSize;
     }
 
     @Override
     public void setMaxStackSize(int size) {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
+        this.maxStackSize = size;
     }
 
     @Override
