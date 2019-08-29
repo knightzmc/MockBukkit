@@ -724,8 +724,7 @@ public class PluginManagerMock implements PluginManager
 	@Override
 	public boolean useTimings()
 	{
-		// TODO Auto-generated method stub
-		throw new UnimplementedOperationException();
+		return false;
 	}
 	
 }
