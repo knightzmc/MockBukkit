@@ -6,6 +6,7 @@ import be.seeseemelk.mockbukkit.command.MessageTarget;
 import be.seeseemelk.mockbukkit.entity.EntityMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMockFactory;
+import be.seeseemelk.mockbukkit.help.HelpMapMock;
 import be.seeseemelk.mockbukkit.inventory.ChestInventoryMock;
 import be.seeseemelk.mockbukkit.inventory.InventoryMock;
 import be.seeseemelk.mockbukkit.inventory.ItemFactoryMock;
@@ -62,12 +63,13 @@ public class ServerMock implements Server {
     private final PlayerMockFactory playerFactory = new PlayerMockFactory(this);
     private final PluginManagerMock pluginManager = new PluginManagerMock(this);
     private final ScoreboardManagerMock scoreboardManager = new ScoreboardManagerMock();
+    private final HelpMap helpMap = new HelpMapMock();
     private List<Recipe> recipes = new LinkedList<>();
     private ConsoleCommandSender consoleSender;
     private BukkitSchedulerMock scheduler = new BukkitSchedulerMock();
     private PlayerList playerList = new PlayerList();
     private GameMode defaultGameMode = GameMode.SURVIVAL;
-    private SimpleCommandMap commandMap = new SimpleCommandMap(this);
+    private CommandMap commandMap = new SimpleCommandMap(this);
 
 
     public ServerMock() {
@@ -846,11 +848,9 @@ public class ServerMock implements Server {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
     }
-
     @Override
     public HelpMap getHelpMap() {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
+        return helpMap;
     }
 
     @Override
