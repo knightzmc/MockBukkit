@@ -3,8 +3,7 @@ package be.seeseemelk.mockbukkit.plugin;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.UnimplementedOperationException;
 import org.apache.commons.io.FileUtils;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.command.PluginCommandUtils;
+import org.bukkit.command.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -38,7 +37,6 @@ public class PluginManagerMock implements PluginManager {
     private final ServerMock server;
     private final List<Plugin> plugins = new ArrayList<>();
     private final JavaPluginLoader loader;
-    private final List<PluginCommand> commands = new ArrayList<>();
     private final Map<Plugin, List<ListenerEntry>> eventListeners = new HashMap<>();
     private final List<Event> events = new ArrayList<>();
     private final List<File> temporaryFiles = new LinkedList<>();
@@ -47,9 +45,12 @@ public class PluginManagerMock implements PluginManager {
     private final List<Permission> permissions = new ArrayList<>();
     private final Map<Permissible, Set<String>> permissionSubscriptions = new HashMap<>();
 
+    private final CommandMap commandMap;
+
     @SuppressWarnings("deprecation")
     public PluginManagerMock(ServerMock server) {
         this.server = server;
+        this.commandMap = server.getCommandMap();
         loader = new JavaPluginLoader(this.server);
     }
 
@@ -138,7 +139,7 @@ public class PluginManagerMock implements PluginManager {
 
     @Override
     public Plugin[] getPlugins() {
-        return plugins.toArray(new Plugin[plugins.size()]);
+        return plugins.toArray(new Plugin[0]);
     }
 
     /**
@@ -147,7 +148,14 @@ public class PluginManagerMock implements PluginManager {
      * @return A collection of all available commands.
      */
     public Collection<PluginCommand> getCommands() {
-        return Collections.unmodifiableList(commands);
+        Set<PluginCommand> set = new LinkedHashSet<>();
+        for (Command it : ((SimpleCommandMap) commandMap).getCommands()) {
+            if (it instanceof PluginCommand) {
+                PluginCommand pluginCommand = (PluginCommand) it;
+                set.add(pluginCommand);
+            }
+        }
+        return set;
     }
 
     /**
@@ -402,7 +410,7 @@ public class PluginManagerMock implements PluginManager {
                 for (Entry<String, Object> section : entry.getValue().entrySet()) {
                     addSection(command, section.getKey(), section.getValue());
                 }
-                this.commands.add(command);
+                commandMap.register(plugin.getName(), command);
             }
         }
     }

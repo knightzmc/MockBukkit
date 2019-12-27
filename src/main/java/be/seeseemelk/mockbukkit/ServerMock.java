@@ -61,6 +61,7 @@ public class ServerMock implements Server {
     private final List<World> worlds = new ArrayList<>();
     private final ItemFactory factory = new ItemFactoryMock();
     private final PlayerMockFactory playerFactory = new PlayerMockFactory(this);
+    private final CommandMap commandMap = new SimpleCommandMap(this);
     private final PluginManagerMock pluginManager = new PluginManagerMock(this);
     private final ScoreboardManagerMock scoreboardManager = new ScoreboardManagerMock();
     private final HelpMap helpMap = new HelpMapMock();
@@ -69,7 +70,6 @@ public class ServerMock implements Server {
     private BukkitSchedulerMock scheduler = new BukkitSchedulerMock();
     private PlayerList playerList = new PlayerList();
     private GameMode defaultGameMode = GameMode.SURVIVAL;
-    private CommandMap commandMap = new SimpleCommandMap(this);
 
 
     public ServerMock() {
@@ -412,12 +412,7 @@ public class ServerMock implements Server {
     @Override
     public PluginCommand getPluginCommand(String name) {
         assertMainThread();
-        for (PluginCommand command : getPluginManager().getCommands()) {
-            if (isLabelOfCommand(command, name)) {
-                return command;
-            }
-        }
-        return null;
+        return (PluginCommand) commandMap.getCommand(name);
     }
 
     @Override
@@ -586,7 +581,8 @@ public class ServerMock implements Server {
         String[] commands = commandLine.split(" ");
         String commandLabel = commands[0];
         String[] args = Arrays.copyOfRange(commands, 1, commands.length);
-        Command command = getPluginCommand(commandLabel);
+        Command command = commandMap.getCommand(commandLabel);
+
         if (command != null)
             return command.execute(sender, commandLabel, args);
         else
@@ -848,6 +844,7 @@ public class ServerMock implements Server {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
     }
+
     @Override
     public HelpMap getHelpMap() {
         return helpMap;

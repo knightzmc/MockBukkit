@@ -99,9 +99,7 @@ public class PluginManagerMockTest {
         Player player = server.addPlayer();
         BlockBreakEvent eventToFire = new BlockBreakEvent(null, player);
         pluginManager.callEvent(eventToFire);
-        pluginManager.assertEventFired(event -> {
-            return event instanceof BlockBreakEvent && ((BlockBreakEvent) event).getPlayer().equals(player);
-        });
+        pluginManager.assertEventFired(event -> event instanceof BlockBreakEvent && ((BlockBreakEvent) event).getPlayer().equals(player));
     }
 
     @Test(expected = AssertionError.class)
@@ -109,9 +107,7 @@ public class PluginManagerMockTest {
         Player player = server.addPlayer();
         BlockBreakEvent eventToFire = new BlockBreakEvent(null, player);
         pluginManager.callEvent(eventToFire);
-        pluginManager.assertEventFired(event -> {
-            return false;
-        });
+        pluginManager.assertEventFired(event -> false);
     }
 
     @Test
