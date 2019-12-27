@@ -78,7 +78,7 @@ public class ServerMock implements Server {
         try {
             InputStream stream = ClassLoader.getSystemResourceAsStream("logger.properties");
             LogManager.getLogManager().readConfiguration(stream);
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.warning("Could not load file logger.properties");
         }
         logger.setLevel(Level.ALL);
