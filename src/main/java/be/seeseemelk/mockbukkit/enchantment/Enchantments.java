@@ -7,12 +7,17 @@ import java.lang.reflect.Field;
 public class Enchantments
 {
 
+    private static boolean isRegistered = false;
+
     public static void registerAllEnchantmentMocks()
     {
+        if (isRegistered)
+        {
+            return;
+        }
         try
         {
             Field[] enchants = Enchantment.class.getDeclaredFields();
-            //noinspection unchecked
             for (Field enchant : enchants)
             {
                 if (enchant.getType() != Enchantment.class)
@@ -21,7 +26,7 @@ public class Enchantments
                 }
                 enchant.setAccessible(true);
                 Enchantment enchantmentWrapper = (Enchantment) enchant.get(null);
-                BasicEnchantment enchantment = new BasicEnchantment(enchantmentWrapper.getKey().getKey());
+                BasicEnchantment enchantment = new BasicEnchantment(enchant.getName().toLowerCase(), enchantmentWrapper.getId());
                 Enchantment.registerEnchantment(enchantment);
             }
         }
@@ -29,8 +34,10 @@ public class Enchantments
         {
             e.printStackTrace();
         }
-
-        Enchantment.stopAcceptingRegistrations();
-
+        finally
+        {
+            isRegistered = true;
+            Enchantment.stopAcceptingRegistrations();
+        }
     }
 }

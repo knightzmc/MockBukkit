@@ -10,9 +10,9 @@ public class BasicEnchantment extends Enchantment
 
     private final String name;
 
-    public BasicEnchantment(String name)
+    public BasicEnchantment(String name, int id)
     {
-        super(NamespacedKey.minecraft(name));
+        super(id);
         this.name = name;
     }
 

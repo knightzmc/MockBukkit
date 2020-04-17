@@ -970,7 +970,8 @@ public class PlayerMock extends EntityMock implements Player
 		AsyncPlayerChatEvent eventAsync = new AsyncPlayerChatEvent(false, this, msg,
 				new HashSet<>(Bukkit.getOnlinePlayers()));
 		PlayerChatEvent eventSync = new PlayerChatEvent(this, msg);
-		Bukkit.getScheduler().runTaskAsynchronously(null, () -> {
+		Bukkit.getScheduler().runTaskAsynchronously(null, () ->
+		{
 			Bukkit.getPluginManager().callEvent(eventAsync);
 		});
 		Bukkit.getPluginManager().callEvent(eventSync);
@@ -1771,6 +1772,13 @@ public class PlayerMock extends EntityMock implements Player
 
 	@Override
 	public String getLocale()
+	{
+		// TODO Auto-generated method stub
+		throw new UnimplementedOperationException();
+	}
+
+	@Override
+	public Player.Spigot spigot()
 	{
 		// TODO Auto-generated method stub
 		throw new UnimplementedOperationException();

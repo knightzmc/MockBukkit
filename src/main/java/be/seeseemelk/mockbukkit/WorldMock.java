@@ -63,7 +63,7 @@ public class WorldMock implements World
 
 	/**
 	 * Creates a new mock world.
-	 * 
+	 *
 	 * @param defaultBlock The block that is spawned at locations 1 to
 	 *        {@code grassHeight}
 	 * @param height The height of the world.
@@ -79,7 +79,7 @@ public class WorldMock implements World
 
 	/**
 	 * Creates a new mock world with a height of 128.
-	 * 
+	 *
 	 * @param defaultBlock The block that is spawned at locations 1 to
 	 *        {@code grassHeight}
 	 * @param grassHeight The last {@code y} at which {@code defaultBlock} will
@@ -102,7 +102,7 @@ public class WorldMock implements World
 	/**
 	 * Makes sure that a certain block exists on the coordinate.
 	 * Returns that block.
-	 * 
+	 *
 	 * @param c Creates a block on the given coordinate.
 	 * @return A newly created block at that location.
 	 */
@@ -112,7 +112,7 @@ public class WorldMock implements World
 			throw new ArrayIndexOutOfBoundsException("Y larger than height");
 		else if (c.y < 0)
 			throw new ArrayIndexOutOfBoundsException("Y smaller than 0");
-		
+
 		Location location = new Location(this, c.x, c.y, c.z);
 		BlockMock block;
 		if (c.y == 0)
@@ -121,11 +121,11 @@ public class WorldMock implements World
 			block = new BlockMock(defaultBlock, location);
 		else
 			block = new BlockMock(location);
-		
+
 		blocks.put(c, block);
 		return block;
 	}
-	
+
 	@Override
 	public BlockMock getBlockAt(int x, int y, int z)
 	{
@@ -145,13 +145,13 @@ public class WorldMock implements World
 	{
 		return getBlockAt(location.getBlockX(), location.getBlockY(), location.getBlockZ());
 	}
-	
+
 	@Override
 	public String getName()
 	{
 		return name;
 	}
-	
+
 	/**
 	 * Give a new name to this world.
 	 * @param name The new name of this world.
@@ -166,7 +166,7 @@ public class WorldMock implements World
 	{
 		return uuid;
 	}
-	
+
 	@Override
 	public Location getSpawnLocation()
 	{
@@ -176,7 +176,7 @@ public class WorldMock implements World
 		}
 		return spawnLocation;
 	}
-	
+
 	@Override
 	public boolean setSpawnLocation(Location location)
 	{
@@ -198,16 +198,16 @@ public class WorldMock implements World
 		}
 		return true;
 	}
-	
+
 	@Override
 	public List<Entity> getEntities()
 	{
 		//MockBukkit.assertMocking();
 		List<Entity> entities = new ArrayList<>();
-		
+
 		Collection<? extends PlayerMock> players = MockBukkit.getMock().getOnlinePlayers();
 		players.stream().filter(player -> player.getWorld() == this).collect(Collectors.toCollection(() -> entities));
-		
+
 		return entities;
 	}
 
@@ -217,7 +217,7 @@ public class WorldMock implements World
 		ChunkMock chunk = new ChunkMock(this, x, z);
 		return chunk;
 	}
-	
+
 	@Override
 	public void sendPluginMessage(Plugin source, String channel, byte[] message)
 	{
@@ -1136,6 +1136,13 @@ public class WorldMock implements World
 	@Override
 	public <T> void spawnParticle(Particle particle, double x, double y, double z, int count, double offsetX,
 			double offsetY, double offsetZ, double extra, T data)
+	{
+		// TODO Auto-generated method stub
+		throw new UnimplementedOperationException();
+	}
+
+	@Override
+	public Spigot spigot()
 	{
 		// TODO Auto-generated method stub
 		throw new UnimplementedOperationException();

@@ -4,6 +4,7 @@ import be.seeseemelk.mockbukkit.MockBukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +15,12 @@ public class EnchantmentTest
     public void setUp()
     {
         MockBukkit.mock();
+    }
+
+    @After
+    public void tearDown()
+    {
+        MockBukkit.unload();
     }
 
     @Test
