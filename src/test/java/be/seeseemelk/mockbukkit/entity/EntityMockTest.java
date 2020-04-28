@@ -26,7 +26,7 @@ public class EntityMockTest
     private EntityMock entity;
 
     @Before
-    public void setUp()
+    public void setUp() throws Exception
     {
         server = MockBukkit.mock();
         world = server.addSimpleWorld("world");
@@ -34,9 +34,12 @@ public class EntityMockTest
     }
 
     @After
-    public void tearDown()
+    public void tearDown() throws Exception
     {
-        MockBukkit.unload();
+        if (MockBukkit.isMocked())
+        {
+            MockBukkit.unload();
+        }
     }
 
     @Test
@@ -183,26 +186,26 @@ public class EntityMockTest
     public void equals_SameUUID_Equal()
     {
         EntityMock entity2 = new SimpleEntityMock(server, entity.getUniqueId());
-        assertEquals("Two equal entities are not equal", entity, entity2);
+        assertTrue("Two equal entities are not equal", entity.equals(entity2));
     }
 
     @Test
     public void equals_DifferentUUID_Different()
     {
         EntityMock entity2 = new SimpleEntityMock(server);
-        assertNotEquals("Two different entities detected as equal", entity, entity2);
+        assertFalse("Two different entities detected as equal", entity.equals(entity2));
     }
 
     @Test
     public void equals_DifferentObject_Different()
     {
-        assertNotEquals(entity, new Object());
+        assertFalse(entity.equals(new Object()));
     }
 
     @Test
     public void equals_Null_Different()
     {
-        assertNotEquals(null, entity);
+        assertFalse(entity.equals(null));
     }
 
     @Test

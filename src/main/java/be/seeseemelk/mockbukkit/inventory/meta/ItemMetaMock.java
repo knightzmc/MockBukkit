@@ -12,7 +12,6 @@ import static java.util.Objects.nonNull;
 
 public class ItemMetaMock implements ItemMeta
 {
-
     private String displayName = null;
     private List<String> lore = null;
     private Map<Enchantment, Integer> enchants = new HashMap<>();
@@ -23,12 +22,46 @@ public class ItemMetaMock implements ItemMeta
     {
     }
 
+
     public ItemMetaMock(ItemMeta meta)
     {
-        if (meta.hasDisplayName())
-            displayName = meta.getDisplayName();
+        this.displayName = meta.getDisplayName();
         if (meta.hasLore())
-            lore = meta.getLore();
+        {
+            this.lore = new ArrayList<>(meta.getLore());
+        }
+        this.enchants = new HashMap<>(meta.getEnchants());
+        this.hideFlags = new HashSet<>(meta.getItemFlags());
+        this.unbreakable = meta.isUnbreakable();
+    }
+
+    public ItemMetaMock(ItemMetaMock meta)
+    {
+        this((ItemMeta) meta);
+    }
+
+    static boolean checkConflictingEnchants(Map<Enchantment, Integer> enchantments, Enchantment enchants)
+    {
+        if (enchantments != null && !enchantments.isEmpty())
+        {
+            Iterator<Enchantment> var2 = enchantments.keySet().iterator();
+
+            Enchantment enchant;
+            do
+            {
+                if (!var2.hasNext())
+                {
+                    return false;
+                }
+
+                enchant = var2.next();
+            }
+            while (!enchant.conflictsWith(enchants));
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 
     @Override
@@ -148,7 +181,6 @@ public class ItemMetaMock implements ItemMeta
         }
     }
 
-    @Override
     public Spigot spigot()
     {
         // TODO Auto-generated method stub
@@ -223,6 +255,17 @@ public class ItemMetaMock implements ItemMeta
         }
     }
 
+    /**
+     * Used internally for the ItemFactoryMock. This code is based on
+     * `CraftMetaItem#updateMaterial`
+     *
+     * @param material
+     * @return
+     */
+    public Material updateMaterial(Material material)
+    {
+        return material;
+    }
 
     @Override
     public Map<String, Object> serialize()
