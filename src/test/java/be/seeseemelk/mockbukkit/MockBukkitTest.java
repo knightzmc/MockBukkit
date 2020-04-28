@@ -21,7 +21,7 @@ public class MockBukkitTest
 	{
 		MockBukkit.setServerInstanceToNull();
 	}
-	
+
 	@After
 	public void tearDown()
 	{
@@ -30,16 +30,17 @@ public class MockBukkitTest
 			MockBukkit.unload();
 		}
 	}
-	
+
 	@Test
 	public void setServerInstanceToNull()
 	{
 		MockBukkit.mock();
 		assumeNotNull(Bukkit.getServer());
+		MockBukkit.unload();
 		MockBukkit.setServerInstanceToNull();
 		assertNull(Bukkit.getServer());
 	}
-	
+
 	@Test
 	public void mock_ServerMocked()
 	{
@@ -48,20 +49,21 @@ public class MockBukkitTest
 		assertEquals(server, MockBukkit.getMock());
 		assertEquals(server, Bukkit.getServer());
 	}
-	
+
 	@Test
 	public void isMocked_ServerNotMocked_False()
 	{
 		assertFalse(MockBukkit.isMocked());
 	}
-	
+
 	@Test
 	public void isMocked_ServerMocked_True()
 	{
 		MockBukkit.mock();
 		assertTrue(MockBukkit.isMocked());
+		MockBukkit.unload();
 	}
-	
+
 	@Test
 	public void isMocked_ServerUnloaded_False()
 	{
@@ -69,7 +71,7 @@ public class MockBukkitTest
 		MockBukkit.unload();
 		assertFalse(MockBukkit.isMocked());
 	}
-	
+
 	@Test
 	public void load_MyPlugin()
 	{
@@ -78,31 +80,35 @@ public class MockBukkitTest
 		server.getPluginManager().assertEventFired(PluginEnableEvent.class, event -> event.getPlugin().equals(plugin));
 		assertTrue("Plugin not enabled", plugin.isEnabled());
 		assertTrue("Plugin's onEnable method not executed", plugin.onEnableExecuted);
+		MockBukkit.unload();
 	}
-	
+
 	@Test
 	public void load_TestPluginWithExtraParameter_ExtraParameterPassedOn()
 	{
 		MockBukkit.mock();
-		TestPlugin plugin = MockBukkit.load(TestPlugin.class, new Integer(5));
-		assertEquals(new Integer(5), plugin.extra);
+		TestPlugin plugin = MockBukkit.load(TestPlugin.class, 5);
+		assertEquals(5, plugin.extra);
+		MockBukkit.unload();
 	}
-	
+
 	@Test(expected = RuntimeException.class)
 	public void load_TestPluginWithExtraIncorrectParameter_ExceptionThrown()
 	{
 		MockBukkit.mock();
 		MockBukkit.load(TestPlugin.class, "Hello");
+		MockBukkit.unload();
 	}
-	
+
 	@Test
 	public void loadWith_SecondTextPluginAndResourceFileAsString_PluginLoaded()
 	{
 		MockBukkit.mock();
 		SecondTestPlugin plugin = MockBukkit.loadWith(SecondTestPlugin.class, "second_plugin.yml");
 		assertEquals("Name was not loaded correctly", "SecondTestPlugin", plugin.getName());
+		MockBukkit.unload();
 	}
-	
+
 	@Test
 	public void loadSimple_SecondTextPlugin_PluginLoaded()
 	{
@@ -110,8 +116,9 @@ public class MockBukkitTest
 		SecondTestPlugin plugin = MockBukkit.loadSimple(SecondTestPlugin.class);
 		assertEquals("Name was not set correctly", "SecondTestPlugin", plugin.getName());
 		assertEquals("Version was not set correctly", "1.0.0", plugin.getDescription().getVersion());
+		MockBukkit.unload();
 	}
-	
+
 	@Test
 	public void createMockPlugin_CreatesMockPlugin()
 	{
@@ -120,8 +127,9 @@ public class MockBukkitTest
 		assertEquals("MockPlugin", plugin.getName());
 		assertEquals("1.0.0", plugin.getDescription().getVersion());
 		assertTrue(plugin.isEnabled());
+		MockBukkit.unload();
 	}
-	
+
 	@Test
 	public void unload_PluginLoaded_PluginDisabled()
 	{
@@ -132,5 +140,5 @@ public class MockBukkitTest
 		assertFalse(plugin.isEnabled());
 		assertTrue(plugin.onDisableExecuted);
 	}
-	
+
 }

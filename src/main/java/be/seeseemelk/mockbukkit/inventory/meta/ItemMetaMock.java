@@ -11,7 +11,9 @@ import java.util.*;
 
 import static java.util.Objects.nonNull;
 
-public class ItemMetaMock implements ItemMeta, Damageable {
+public class ItemMetaMock implements ItemMeta, Damageable
+{
+
     private String displayName = null;
     private List<String> lore = null;
     private int damage = 0;
@@ -19,23 +21,42 @@ public class ItemMetaMock implements ItemMeta, Damageable {
     private Set<ItemFlag> hideFlags = EnumSet.noneOf(ItemFlag.class);
     private boolean unbreakable;
 
-    public ItemMetaMock() {
+    public ItemMetaMock()
+    {
     }
 
-    public ItemMetaMock(ItemMeta meta) {
-        if (meta.hasDisplayName())
-            displayName = meta.getDisplayName();
+    public ItemMetaMock(ItemMeta meta)
+    {
+        this.displayName = meta.getDisplayName();
         if (meta.hasLore())
-            lore = meta.getLore();
+        {
+            this.lore = new ArrayList<>(meta.getLore());
+        }
+        if (meta instanceof Damageable)
+        {
+            this.damage = ((Damageable) meta).getDamage();
+        }
+        this.enchants = new HashMap<>(meta.getEnchants());
+        this.hideFlags = new HashSet<>(meta.getItemFlags());
+        this.unbreakable = meta.isUnbreakable();
     }
 
-    static boolean checkConflictingEnchants(Map<Enchantment, Integer> enchantments, Enchantment enchants) {
-        if (enchantments != null && !enchantments.isEmpty()) {
+    public ItemMetaMock(ItemMetaMock copy)
+    {
+        this((ItemMeta) copy);
+    }
+
+    static boolean checkConflictingEnchants(Map<Enchantment, Integer> enchantments, Enchantment enchants)
+    {
+        if (enchantments != null && !enchantments.isEmpty())
+        {
             Iterator<Enchantment> var2 = enchantments.keySet().iterator();
 
             Enchantment enchant;
-            do {
-                if (!var2.hasNext()) {
+            do
+            {
+                if (!var2.hasNext())
+                {
                     return false;
                 }
 
@@ -43,13 +64,15 @@ public class ItemMetaMock implements ItemMeta, Damageable {
             }
             while (!enchant.conflictsWith(enchants));
             return true;
-        } else {
+        } else
+        {
             return false;
         }
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "ItemMetaMock{" +
                 "displayName='" + displayName + '\'' +
                 ", lore=" + lore +
@@ -61,17 +84,20 @@ public class ItemMetaMock implements ItemMeta, Damageable {
     }
 
     @Override
-    public boolean hasDisplayName() {
+    public boolean hasDisplayName()
+    {
         return nonNull(displayName);
     }
 
     @Override
-    public String getDisplayName() {
+    public String getDisplayName()
+    {
         return displayName;
     }
 
     @Override
-    public void setDisplayName(String name) {
+    public void setDisplayName(String name)
+    {
         displayName = name;
     }
 
@@ -81,15 +107,18 @@ public class ItemMetaMock implements ItemMeta, Damageable {
      * @param meta The other item meta whose lore should be compared.
      * @return {@code true} if they are the same, {@code false} if they're not.
      */
-    private boolean isLoreEquals(ItemMeta meta) {
+    private boolean isLoreEquals(ItemMeta meta)
+    {
         if (lore == null)
             return !meta.hasLore();
         else if (!meta.hasLore())
             return false;
 
         List<String> otherLore = meta.getLore();
-        if (lore.size() == otherLore.size()) {
-            for (int i = 0; i < lore.size(); i++) {
+        if (lore.size() == otherLore.size())
+        {
+            for (int i = 0; i < lore.size(); i++)
+            {
                 if (!lore.get(i).equals(otherLore.get(i)))
                     return false;
             }
@@ -106,19 +135,23 @@ public class ItemMetaMock implements ItemMeta, Damageable {
      * @return {@code true} if both display names are equal, {@code false} if
      * they're not.
      */
-    private boolean isDisplayNameEqual(ItemMeta meta) {
-        if (displayName != null) {
+    private boolean isDisplayNameEqual(ItemMeta meta)
+    {
+        if (displayName != null)
+        {
             if (meta.hasDisplayName())
                 return displayName.equals(meta.getDisplayName());
             else
                 return false;
-        } else {
+        } else
+        {
             return !meta.hasDisplayName();
         }
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
@@ -127,39 +160,49 @@ public class ItemMetaMock implements ItemMeta, Damageable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof ItemMeta) {
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof ItemMeta)
+        {
             ItemMeta meta = (ItemMeta) obj;
             return isLoreEquals(meta) && isDisplayNameEqual(meta);
-        } else {
+        } else
+        {
             return false;
         }
     }
 
     @Override
-    public ItemMetaMock clone() {
-        try {
+    public ItemMetaMock clone()
+    {
+        try
+        {
             ItemMetaMock meta = (ItemMetaMock) super.clone();
             meta.displayName = displayName;
             meta.lore = lore;
             return meta;
-        } catch (CloneNotSupportedException e) {
+        }
+        catch (CloneNotSupportedException e)
+        {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public boolean hasLore() {
+    public boolean hasLore()
+    {
         return lore != null;
     }
 
     @Override
-    public List<String> getLore() {
+    public List<String> getLore()
+    {
         return new ArrayList<>(lore);
     }
 
     @Override
-    public void setLore(List<String> lore) {
+    public void setLore(List<String> lore)
+    {
         this.lore = new ArrayList<>(lore);
     }
 
@@ -168,18 +211,24 @@ public class ItemMetaMock implements ItemMeta, Damageable {
      *
      * @param lines The lines the lore should contain
      */
-    public void assertLore(List<String> lines) {
-        if (lore != null && lore.size() == lines.size()) {
-            for (int i = 0; i < lore.size(); i++) {
-                if (!lore.get(i).equals(lines.get(i))) {
+    public void assertLore(List<String> lines)
+    {
+        if (lore != null && lore.size() == lines.size())
+        {
+            for (int i = 0; i < lore.size(); i++)
+            {
+                if (!lore.get(i).equals(lines.get(i)))
+                {
                     throw new AssertionError(
                             String.format("Line %d should be '%s' but was '%s'", i, lines.get(i), lore.get(i)));
                 }
             }
-        } else if (lore != null) {
+        } else if (lore != null)
+        {
             throw new AssertionError(
                     String.format("Lore contained %d lines but should contain %d lines", lore.size(), lines.size()));
-        } else {
+        } else
+        {
             throw new AssertionError("No lore was set");
         }
     }
@@ -189,7 +238,8 @@ public class ItemMetaMock implements ItemMeta, Damageable {
      *
      * @param lines The lines the lore should contain
      */
-    public void assertLore(String... lines) {
+    public void assertLore(String... lines)
+    {
         assertLore(Arrays.asList(lines));
     }
 
@@ -198,8 +248,10 @@ public class ItemMetaMock implements ItemMeta, Damageable {
      *
      * @throws AssertionError if the item meta contains some lore.
      */
-    public void assertHasNoLore() throws AssertionError {
-        if (lore != null && lore.size() != 0) {
+    public void assertHasNoLore() throws AssertionError
+    {
+        if (lore != null && lore.size() != 0)
+        {
             throw new AssertionError("Lore was set but shouldn't have been set");
         }
     }
@@ -211,79 +263,95 @@ public class ItemMetaMock implements ItemMeta, Damageable {
      * @param material
      * @return
      */
-    public Material updateMaterial(Material material) {
+    public Material updateMaterial(Material material)
+    {
         return material;
     }
 
     @Override
-    public Map<String, Object> serialize() {
+    public Map<String, Object> serialize()
+    {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
     }
 
     @Override
-    public boolean hasLocalizedName() {
+    public boolean hasLocalizedName()
+    {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
     }
 
     @Override
-    public String getLocalizedName() {
+    public String getLocalizedName()
+    {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
     }
 
     @Override
-    public void setLocalizedName(String name) {
+    public void setLocalizedName(String name)
+    {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
     }
 
     @Override
-    public boolean hasEnchants() {
+    public boolean hasEnchants()
+    {
         return !enchants.isEmpty();
     }
 
     @Override
-    public boolean hasEnchant(Enchantment ench) {
+    public boolean hasEnchant(Enchantment ench)
+    {
         return enchants.containsKey(ench);
     }
 
     @Override
-    public int getEnchantLevel(Enchantment ench) {
+    public int getEnchantLevel(Enchantment ench)
+    {
         return hasEnchant(ench) ? enchants.get(ench) : 0;
     }
 
     @Override
-    public Map<Enchantment, Integer> getEnchants() {
+    public Map<Enchantment, Integer> getEnchants()
+    {
         return Collections.unmodifiableMap(enchants);
     }
 
     @Override
-    public boolean addEnchant(Enchantment ench, int level, boolean ignoreLevelRestriction) {
+    public boolean addEnchant(Enchantment ench, int level, boolean ignoreLevelRestriction)
+    {
         Integer existingLevel = this.enchants.get(ench);
-        if (nonNull(existingLevel) && existingLevel.equals(level)) {
+        if (nonNull(existingLevel) && existingLevel.equals(level))
+        {
             return false; // Already exists with the same level
         }
 
-        if (ignoreLevelRestriction) {
+        if (ignoreLevelRestriction)
+        {
             this.enchants.put(ench, level);
             return true;
-        } else {
+        } else
+        {
             // TODO Auto-generated method stub
             throw new UnimplementedOperationException();
         }
     }
 
     @Override
-    public boolean removeEnchant(Enchantment ench) {
+    public boolean removeEnchant(Enchantment ench)
+    {
         return nonNull(this.enchants.remove(ench));
     }
 
     @Override
-    public boolean hasConflictingEnchant(Enchantment ench) {
+    public boolean hasConflictingEnchant(Enchantment ench)
+    {
         boolean b = this.hasEnchants() && enchants.remove(ench) != null;
-        if (enchants != null && enchants.isEmpty()) {
+        if (enchants != null && enchants.isEmpty())
+        {
             enchants = null;
         }
 
@@ -291,47 +359,56 @@ public class ItemMetaMock implements ItemMeta, Damageable {
     }
 
     @Override
-    public void addItemFlags(ItemFlag... itemFlags) {
+    public void addItemFlags(ItemFlag... itemFlags)
+    {
         hideFlags.addAll(Arrays.asList(itemFlags));
     }
 
     @Override
-    public void removeItemFlags(ItemFlag... itemFlags) {
+    public void removeItemFlags(ItemFlag... itemFlags)
+    {
         hideFlags.removeAll(Arrays.asList(itemFlags));
     }
 
     @Override
-    public Set<ItemFlag> getItemFlags() {
+    public Set<ItemFlag> getItemFlags()
+    {
         return Collections.unmodifiableSet(hideFlags);
     }
 
     @Override
-    public boolean hasItemFlag(ItemFlag flag) {
+    public boolean hasItemFlag(ItemFlag flag)
+    {
         return hideFlags.contains(flag);
     }
 
     @Override
-    public boolean isUnbreakable() {
+    public boolean isUnbreakable()
+    {
         return unbreakable;
     }
 
     @Override
-    public void setUnbreakable(boolean unbreakable) {
+    public void setUnbreakable(boolean unbreakable)
+    {
         this.unbreakable = unbreakable;
     }
 
     @Override
-    public boolean hasDamage() {
+    public boolean hasDamage()
+    {
         return damage > 0;
     }
 
     @Override
-    public int getDamage() {
+    public int getDamage()
+    {
         return damage;
     }
 
     @Override
-    public void setDamage(int damage) {
+    public void setDamage(int damage)
+    {
         this.damage = damage;
     }
 
