@@ -3,7 +3,6 @@ package be.seeseemelk.mockbukkit.enchantment;
 import org.bukkit.enchantments.Enchantment;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.Map;
 
 public class Enchantments
@@ -47,19 +46,20 @@ public class Enchantments
     {
         try
         {
-            Field byKey = Enchantment.class.getDeclaredField("byKey");
+            Field byId = Enchantment.class.getDeclaredField("byId");
             Field byName = Enchantment.class.getDeclaredField("byName");
 
-            byKey.setAccessible(true);
+            byId.setAccessible(true);
             byName.setAccessible(true);
 
             ((Map<?, ?>) byName.get(null)).clear();
-            ((Map<?, ?>) byKey.get(null)).clear();
+            ((Map<?, ?>) byId.get(null)).clear();
 
             Field acceptingNew = Enchantment.class.getDeclaredField("acceptingNew");
             acceptingNew.setAccessible(true);
             acceptingNew.set(null, true);
 
+            isRegistered = false;
         }
         catch (NoSuchFieldException | IllegalAccessException e)
         {
