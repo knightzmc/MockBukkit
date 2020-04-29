@@ -1007,8 +1007,7 @@ public class ServerMock implements Server
     @Override
     public boolean isPrimaryThread()
     {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
+        return Thread.currentThread().equals(mainThread);
     }
 
     @Override
