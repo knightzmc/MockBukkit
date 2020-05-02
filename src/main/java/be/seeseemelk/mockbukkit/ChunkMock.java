@@ -118,13 +118,27 @@ public class ChunkMock implements Chunk
 		// TODO Auto-generated method stub
 		throw new UnimplementedOperationException();
 	}
-	
+
+	@Override
+	public boolean isForceLoaded()
+	{
+		// TODO Auto-generated method stub
+		throw new UnimplementedOperationException();
+	}
+
+	@Override
+	public void setForceLoaded(boolean forced)
+	{
+		// TODO Auto-generated method stub
+		throw new UnimplementedOperationException();
+	}
+
 	@Override
 	public int hashCode()
 	{
 		return world.hashCode() + x + z;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -138,6 +152,7 @@ public class ChunkMock implements Chunk
 		else
 			return false;
 	}
+
 
 }
 

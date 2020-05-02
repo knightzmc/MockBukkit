@@ -19,10 +19,8 @@ import org.bukkit.*;
 import org.bukkit.BanList.Type;
 import org.bukkit.Warning.WarningState;
 import org.bukkit.advancement.Advancement;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarFlag;
-import org.bukkit.boss.BarStyle;
-import org.bukkit.boss.BossBar;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.boss.*;
 import org.bukkit.command.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
@@ -31,6 +29,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.generator.ChunkGenerator.ChunkData;
 import org.bukkit.help.HelpMap;
 import org.bukkit.inventory.*;
+import org.bukkit.loot.LootTable;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.ServicesManager;
@@ -41,6 +40,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.InputStream;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -63,10 +63,10 @@ public class ServerMock implements Server
     private final PluginManagerMock pluginManager = new PluginManagerMock(this);
     private final ScoreboardManagerMock scoreboardManager = new ScoreboardManagerMock();
     private final HelpMap helpMap = new HelpMapMock();
-    private List<Recipe> recipes = new LinkedList<>();
+    private final List<Recipe> recipes = new LinkedList<>();
     private ConsoleCommandSender consoleSender;
-    private BukkitSchedulerMock scheduler = new BukkitSchedulerMock();
-    private PlayerList playerList = new PlayerList();
+    private final BukkitSchedulerMock scheduler = new BukkitSchedulerMock();
+    private final PlayerList playerList = new PlayerList();
     private GameMode defaultGameMode = GameMode.SURVIVAL;
 
     public ServerMock()
@@ -541,6 +541,13 @@ public class ServerMock implements Server
     }
 
     @Override
+    public MapView getMap(int id)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
     public BukkitSchedulerMock getScheduler()
     {
         return scheduler;
@@ -832,14 +839,21 @@ public class ServerMock implements Server
     }
 
     @Override
-    public MapView getMap(short id)
+    public MapView createMap(World world)
     {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
     }
 
     @Override
-    public MapView createMap(World world)
+    public ItemStack createExplorerMap(World world, Location location, StructureType structureType)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public ItemStack createExplorerMap(World world, Location location, StructureType structureType, int radius, boolean findUnexplored)
     {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
@@ -1045,14 +1059,14 @@ public class ServerMock implements Server
     }
 
     @Override
-    public CachedServerIcon loadServerIcon(File file) throws IllegalArgumentException, Exception
+    public CachedServerIcon loadServerIcon(File file)
     {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
     }
 
     @Override
-    public CachedServerIcon loadServerIcon(BufferedImage image) throws IllegalArgumentException, Exception
+    public CachedServerIcon loadServerIcon(BufferedImage image)
     {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
@@ -1087,6 +1101,34 @@ public class ServerMock implements Server
     }
 
     @Override
+    public KeyedBossBar createBossBar(NamespacedKey key, String title, BarColor color, BarStyle style, BarFlag... flags)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public Iterator<KeyedBossBar> getBossBars()
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public KeyedBossBar getBossBar(NamespacedKey key)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public boolean removeBossBar(NamespacedKey key)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
     public Entity getEntity(UUID uuid)
     {
         // TODO Auto-generated method stub
@@ -1102,6 +1144,62 @@ public class ServerMock implements Server
 
     @Override
     public Iterator<Advancement> advancementIterator()
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public BlockData createBlockData(Material material)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public BlockData createBlockData(Material material, Consumer<BlockData> consumer)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public BlockData createBlockData(String data) throws IllegalArgumentException
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public BlockData createBlockData(Material material, String data) throws IllegalArgumentException
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public <T extends Keyed> Tag<T> getTag(String registry, NamespacedKey tag, Class<T> clazz)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public <T extends Keyed> Iterable<Tag<T>> getTags(String registry, Class<T> clazz)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public LootTable getLootTable(NamespacedKey key)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public List<Entity> selectEntities(CommandSender sender, String selector) throws IllegalArgumentException
     {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();

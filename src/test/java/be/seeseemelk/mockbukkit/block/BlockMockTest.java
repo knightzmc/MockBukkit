@@ -26,37 +26,21 @@ public class BlockMockTest
 	{
 		assertEquals(Material.AIR, block.getType());
 	}
-	
-	@SuppressWarnings("deprecation")
-	@Test
-	public void getTypeId_TypeSet_TypeGotten()
-	{
-		assertEquals(Material.AIR.getId(), block.getTypeId());
-		block.setType(Material.STONE);
-		assertEquals(Material.STONE.getId(), block.getTypeId());
-	}
-	
+
 	@Test
 	public void setType_Stone_Set()
 	{
 		block.setType(Material.STONE);
 		assertEquals(Material.STONE, block.getType());
 	}
-	
+
 	@Test
 	public void getState_Default_NotNull()
 	{
 		assertNotNull(block.getState());
 	}
-	
-	@SuppressWarnings("deprecation")
-	@Test
-	public void getData_DataSet_DateGotten()
-	{
-		block.setData((byte) 25);
-		assertEquals(25, block.getData());
-	}
-	
+
+
 	@Test
 	public void getLocation_Default_Null()
 	{
@@ -88,7 +72,7 @@ public class BlockMockTest
 		assertEquals(2, block.getY());
 		assertEquals(3, block.getZ());
 	}
-	
+
 	@Test
 	public void assertType_CorrectType_DoesNotFail()
 	{
@@ -97,7 +81,7 @@ public class BlockMockTest
 		block.setType(Material.DIRT);
 		block.assertType(Material.DIRT);
 	}
-	
+
 	@Test(expected = AssertionError.class)
 	public void assertType_IncorrectType_Fails()
 	{

@@ -1,113 +1,128 @@
 package be.seeseemelk.mockbukkit.scoreboard;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import be.seeseemelk.mockbukkit.UnimplementedOperationException;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.RenderType;
 
-import be.seeseemelk.mockbukkit.UnimplementedOperationException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ObjectiveMock implements Objective
 {
-	private final ScoreboardMock scoreboard;
-	private final String name;
-	private final String criteria;
-	private final Map<String, ScoreMock> scores = new HashMap<>();
-	private String displayName;
-	private DisplaySlot displaySlot;
 
-	public ObjectiveMock(ScoreboardMock scoreboard, String name, String criteria)
-	{
-		this.scoreboard = scoreboard;
-		this.name = name;
-		this.displayName = name;
-		this.criteria = criteria;
-	}
+    private final ScoreboardMock scoreboard;
+    private final String name;
+    private final String criteria;
+    private final Map<String, ScoreMock> scores = new HashMap<>();
+    private String displayName;
+    private DisplaySlot displaySlot;
+    private RenderType renderType = RenderType.INTEGER;
 
-	@Override
-	public String getName() throws IllegalStateException
-	{
-		return name;
-	}
+    public ObjectiveMock(ScoreboardMock scoreboard, String name, String criteria)
+    {
+        this.scoreboard = scoreboard;
+        this.name = name;
+        this.displayName = name;
+        this.criteria = criteria;
+    }
 
-	@Override
-	public String getDisplayName() throws IllegalStateException
-	{
-		return displayName;
-	}
+    @Override
+    public String getName() throws IllegalStateException
+    {
+        return name;
+    }
 
-	@Override
-	public void setDisplayName(String displayName) throws IllegalStateException, IllegalArgumentException
-	{
-		this.displayName = displayName;
-	}
+    @Override
+    public String getDisplayName() throws IllegalStateException
+    {
+        return displayName;
+    }
 
-	@Override
-	public String getCriteria() throws IllegalStateException
-	{
-		return criteria;
-	}
+    @Override
+    public void setDisplayName(String displayName) throws IllegalStateException, IllegalArgumentException
+    {
+        this.displayName = displayName;
+    }
 
-	@Override
-	public boolean isModifiable() throws IllegalStateException
-	{
-		// TODO Auto-generated method stub
-		throw new UnimplementedOperationException();
-	}
+    @Override
+    public String getCriteria() throws IllegalStateException
+    {
+        return criteria;
+    }
 
-	@Override
-	public ScoreboardMock getScoreboard()
-	{
-		return scoreboard;
-	}
+    @Override
+    public boolean isModifiable() throws IllegalStateException
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
 
-	@Override
-	public void unregister() throws IllegalStateException
-	{
-		scoreboard.unregister(this);
-	}
-	
-	/**
-	 * Checks if the objective is still registered.
-	 * @return {@code true} if the objective is still registered, {@code false} if it has been unregistered.
-	 */
-	public boolean isRegistered()
-	{
-		return scoreboard.getObjectives().contains(this);
-	}
+    @Override
+    public ScoreboardMock getScoreboard()
+    {
+        return scoreboard;
+    }
 
-	@Override
-	public void setDisplaySlot(DisplaySlot slot) throws IllegalStateException
-	{
-		displaySlot = slot;
-		scoreboard.setDisplaySlot(this, slot);
-	}
+    @Override
+    public void unregister() throws IllegalStateException
+    {
+        scoreboard.unregister(this);
+    }
 
-	@Override
-	public DisplaySlot getDisplaySlot() throws IllegalStateException
-	{
-		return displaySlot;
-	}
+    /**
+     * Checks if the objective is still registered.
+     *
+     * @return {@code true} if the objective is still registered, {@code false} if it has been unregistered.
+     */
+    public boolean isRegistered()
+    {
+        return scoreboard.getObjectives().contains(this);
+    }
 
-	@Override
-	public ScoreMock getScore(OfflinePlayer player) throws IllegalArgumentException, IllegalStateException
-	{
-		return getScore(player.getName());	
-	}
+    @Override
+    public void setDisplaySlot(DisplaySlot slot) throws IllegalStateException
+    {
+        displaySlot = slot;
+        scoreboard.setDisplaySlot(this, slot);
+    }
 
-	@Override
-	public ScoreMock getScore(String entry) throws IllegalArgumentException, IllegalStateException
-	{
-		if (scores.containsKey(entry))
-			return scores.get(entry);
-		else
-		{
-			ScoreMock score = new ScoreMock(this, entry);
-			scores.put(entry, score);
-			return score;
-		}
-	}
+    @Override
+    public DisplaySlot getDisplaySlot() throws IllegalStateException
+    {
+        return displaySlot;
+    }
+
+    @Override
+    public void setRenderType(RenderType renderType) throws IllegalStateException
+    {
+        this.renderType = renderType;
+    }
+
+    @Override
+    public RenderType getRenderType() throws IllegalStateException
+    {
+        return renderType;
+    }
+
+    @Override
+    public ScoreMock getScore(OfflinePlayer player) throws IllegalArgumentException, IllegalStateException
+    {
+        return getScore(player.getName());
+    }
+
+    @Override
+    public ScoreMock getScore(String entry) throws IllegalArgumentException, IllegalStateException
+    {
+        if (scores.containsKey(entry))
+            return scores.get(entry);
+        else
+        {
+            ScoreMock score = new ScoreMock(this, entry);
+            scores.put(entry, score);
+            return score;
+        }
+    }
 
 }

@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.UnimplementedOperationException;
+import org.bukkit.block.BlockFace;
+import org.bukkit.util.BoundingBox;
 
 /**
  * A very simple class that allows one to create an instance of an entity
@@ -29,6 +31,41 @@ public class SimpleEntityMock extends EntityMock
 	public SimpleEntityMock(ServerMock server)
 	{
 		this(server, UUID.randomUUID());
+	}
+
+	@Override
+	public BoundingBox getBoundingBox()
+	{
+		// TODO Auto-generated method stub
+		throw new UnimplementedOperationException();
+	}
+
+	@Override
+	public void setRotation(float yaw, float pitch)
+	{
+		// TODO Auto-generated method stub
+		throw new UnimplementedOperationException();
+	}
+
+	@Override
+	public boolean isPersistent()
+	{
+		// TODO Auto-generated method stub
+		throw new UnimplementedOperationException();
+	}
+
+	@Override
+	public void setPersistent(boolean persistent)
+	{
+		// TODO Auto-generated method stub
+		throw new UnimplementedOperationException();
+	}
+
+	@Override
+	public BlockFace getFacing()
+	{
+		// TODO Auto-generated method stub
+		throw new UnimplementedOperationException();
 	}
 
 	@Override

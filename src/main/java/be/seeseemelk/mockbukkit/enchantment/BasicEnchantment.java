@@ -5,12 +5,14 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
+
 public class BasicEnchantment extends Enchantment
 {
 
     private final String name;
 
-    public BasicEnchantment(String name, int id)
+    public BasicEnchantment(String name, NamespacedKey id)
     {
         super(id);
         this.name = name;
@@ -62,5 +64,25 @@ public class BasicEnchantment extends Enchantment
     public boolean canEnchantItem(ItemStack item)
     {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (!(o instanceof BasicEnchantment)) return false;
+        if (!super.equals(o)) return false;
+
+        BasicEnchantment that = (BasicEnchantment) o;
+
+        return Objects.equals(getKey(), that.getKey());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = super.hashCode();
+        result = 31 * result + getKey().hashCode();
+        return result;
     }
 }

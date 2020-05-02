@@ -16,6 +16,8 @@ import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationAbandonedEvent;
 import org.bukkit.entity.*;
@@ -36,6 +38,8 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.util.BoundingBox;
+import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
 import java.net.InetSocketAddress;
@@ -479,6 +483,30 @@ public class PlayerMock extends EntityMock implements Player
     }
 
     @Override
+    public boolean discoverRecipe(NamespacedKey recipe)
+    {
+        return false;
+    }
+
+    @Override
+    public int discoverRecipes(Collection<NamespacedKey> recipes)
+    {
+        return 0;
+    }
+
+    @Override
+    public boolean undiscoverRecipe(NamespacedKey recipe)
+    {
+        return false;
+    }
+
+    @Override
+    public int undiscoverRecipes(Collection<NamespacedKey> recipes)
+    {
+        return 0;
+    }
+
+    @Override
     public Entity getShoulderEntityLeft()
     {
         // TODO Auto-generated method stub
@@ -546,6 +574,30 @@ public class PlayerMock extends EntityMock implements Player
     {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public Block getTargetBlockExact(int maxDistance)
+    {
+        return null;
+    }
+
+    @Override
+    public Block getTargetBlockExact(int maxDistance, FluidCollisionMode fluidCollisionMode)
+    {
+        return null;
+    }
+
+    @Override
+    public RayTraceResult rayTraceBlocks(double maxDistance)
+    {
+        return null;
+    }
+
+    @Override
+    public RayTraceResult rayTraceBlocks(double maxDistance, FluidCollisionMode fluidCollisionMode)
+    {
+        return null;
     }
 
     @Override
@@ -752,6 +804,24 @@ public class PlayerMock extends EntityMock implements Player
     }
 
     @Override
+    public boolean isSwimming()
+    {
+        return false;
+    }
+
+    @Override
+    public void setSwimming(boolean swimming)
+    {
+
+    }
+
+    @Override
+    public boolean isRiptiding()
+    {
+        return false;
+    }
+
+    @Override
     public void setAI(boolean ai)
     {
         // TODO Auto-generated method stub
@@ -890,6 +960,41 @@ public class PlayerMock extends EntityMock implements Player
 
     @Override
     public void setPlayerListName(String name)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public String getPlayerListHeader()
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public String getPlayerListFooter()
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public void setPlayerListHeader(String header)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public void setPlayerListFooter(String footer)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public void setPlayerListHeaderFooter(String header, String footer)
     {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
@@ -1087,14 +1192,13 @@ public class PlayerMock extends EntityMock implements Player
     }
 
     @Override
-    public boolean sendChunkChange(Location loc, int sx, int sy, int sz, byte[] data)
+    public void sendBlockChange(Location loc, BlockData block)
     {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
+
     }
 
     @Override
-    public void sendBlockChange(Location loc, int material, byte data)
+    public boolean sendChunkChange(Location loc, int sx, int sy, int sz, byte[] data)
     {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
@@ -1445,6 +1549,24 @@ public class PlayerMock extends EntityMock implements Player
     }
 
     @Override
+    public boolean sleep(Location location, boolean force)
+    {
+        return false;
+    }
+
+    @Override
+    public void wakeup(boolean setSpawnLocation)
+    {
+
+    }
+
+    @Override
+    public Location getBedLocation()
+    {
+        return null;
+    }
+
+    @Override
     public boolean getAllowFlight()
     {
         // TODO Auto-generated method stub
@@ -1732,6 +1854,12 @@ public class PlayerMock extends EntityMock implements Player
     }
 
     @Override
+    public int getClientViewDistance()
+    {
+        return 0;
+    }
+
+    @Override
     public String getLocale()
     {
         // TODO Auto-generated method stub
@@ -1739,10 +1867,47 @@ public class PlayerMock extends EntityMock implements Player
     }
 
     @Override
+    public void updateCommands()
+    {
+
+    }
+
+    @Override
     public Player.Spigot spigot()
     {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public BoundingBox getBoundingBox()
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public void setRotation(float yaw, float pitch)
+    {
+
+    }
+
+    @Override
+    public boolean isPersistent()
+    {
+        return false;
+    }
+
+    @Override
+    public void setPersistent(boolean persistent)
+    {
+
+    }
+
+    @Override
+    public BlockFace getFacing()
+    {
+        return null;
     }
 
     @Override

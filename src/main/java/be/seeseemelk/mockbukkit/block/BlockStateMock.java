@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.material.MaterialData;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
@@ -16,15 +17,9 @@ import be.seeseemelk.mockbukkit.UnimplementedOperationException;
 
 public class BlockStateMock implements BlockState
 {
-	private MaterialData data;
-	
+
 	public BlockStateMock()
 	{
-	}
-	
-	public BlockStateMock(MaterialData data)
-	{
-		this.data = data;
 	}
 
 	@Override
@@ -65,19 +60,19 @@ public class BlockStateMock implements BlockState
 	@Override
 	public MaterialData getData()
 	{
-		return data;
+		// TODO Auto-generated method stub
+		throw new UnimplementedOperationException();
 	}
 
 	@Override
-	public Material getType()
+	public BlockData getBlockData()
 	{
 		// TODO Auto-generated method stub
 		throw new UnimplementedOperationException();
 	}
 
 	@Override
-	@Deprecated
-	public int getTypeId()
+	public Material getType()
 	{
 		// TODO Auto-generated method stub
 		throw new UnimplementedOperationException();
@@ -142,19 +137,19 @@ public class BlockStateMock implements BlockState
 	@Override
 	public void setData(MaterialData data)
 	{
-		this.data = data;
+		// TODO Auto-generated method stub
+		throw new UnimplementedOperationException();
 	}
 
 	@Override
-	public void setType(Material type)
+	public void setBlockData(BlockData data)
 	{
 		// TODO Auto-generated method stub
 		throw new UnimplementedOperationException();
 	}
 
 	@Override
-	@Deprecated
-	public boolean setTypeId(int type)
+	public void setType(Material type)
 	{
 		// TODO Auto-generated method stub
 		throw new UnimplementedOperationException();

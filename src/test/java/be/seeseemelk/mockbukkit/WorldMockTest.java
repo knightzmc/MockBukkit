@@ -21,19 +21,19 @@ import be.seeseemelk.mockbukkit.block.BlockMock;
 public class WorldMockTest
 {
 	private ServerMock server;
-	
+
 	@Before
 	public void setUp()
 	{
 		server = MockBukkit.mock();
 	}
-	
+
 	@After
 	public void tearDown()
 	{
 		MockBukkit.unload();
 	}
-	
+
 	@Test
 	public void getBlockAt_StandardWorld_DefaultBlocks()
 	{
@@ -44,16 +44,16 @@ public class WorldMockTest
 		assertEquals(Material.DIRT, world.getBlockAt(0, 3, 0).getType());
 		assertEquals(Material.AIR, world.getBlockAt(0, 4, 0).getType());
 	}
-	
+
 	@Test
 	public void getBlockAt_BlockChanged_BlockChanged()
 	{
 		WorldMock world = new WorldMock();
 		assertEquals(Material.AIR, world.getBlockAt(0, 10, 0).getType());
-		world.getBlockAt(0, 10, 0).setType(Material.WOOD);
-		assertEquals(Material.WOOD, world.getBlockAt(0, 10, 0).getType());
+		world.getBlockAt(0, 10, 0).setType(Material.OAK_WOOD);
+		assertEquals(Material.OAK_WOOD, world.getBlockAt(0, 10, 0).getType());
 	}
-	
+
 	@Test
 	public void getBlockAt_AnyBlock_LocationSet()
 	{
@@ -65,7 +65,7 @@ public class WorldMockTest
 		assertEquals(3, location.getBlockZ());
 		assertEquals(world, block.getWorld());
 	}
-	
+
 	@Test
 	public void getSpawnLocation_Default_JustAboveDirt()
 	{
@@ -75,7 +75,7 @@ public class WorldMockTest
 		assertEquals(Material.AIR, world.getBlockAt(spawn.getBlockX(), spawn.getBlockY(), spawn.getBlockZ()).getType());
 		assertEquals(Material.GRASS, world.getBlockAt(spawn.getBlockX(), spawn.getBlockY()-1, spawn.getBlockZ()).getType());
 	}
-	
+
 	@Test
 	public void setSpawnLocation_SomeNewLocation_LocationChanged()
 	{
@@ -85,13 +85,13 @@ public class WorldMockTest
 		assertEquals(spawn.getBlockX() + 10, world.getSpawnLocation().getBlockX());
 		assertEquals(spawn.getBlockY() + 10, world.getSpawnLocation().getBlockY());
 		assertEquals(spawn.getBlockZ() + 10, world.getSpawnLocation().getBlockZ());
-		
+
 		world.setSpawnLocation(spawn);
 		assertEquals(spawn.getBlockX(), world.getSpawnLocation().getBlockX());
 		assertEquals(spawn.getBlockY(), world.getSpawnLocation().getBlockY());
 		assertEquals(spawn.getBlockZ(), world.getSpawnLocation().getBlockZ());
 	}
-	
+
 	@Test
 	public void getEntities_NoEntities_EmptyList()
 	{
@@ -100,7 +100,7 @@ public class WorldMockTest
 		assertNotNull(entities);
 		assertEquals(0, entities.size());
 	}
-	
+
 	@Test
 	public void getEntities_OnePlayerInWorld_ListContainsOnlyPlayer()
 	{
@@ -113,7 +113,7 @@ public class WorldMockTest
 		assertEquals(1, entities.size());
 		assertSame(player, entities.get(0));
 	}
-	
+
 	@Test
 	public void getEntities_OnePlayerInDifferentWorld_EmptyList()
 	{
@@ -125,7 +125,7 @@ public class WorldMockTest
 		assertNotNull(entities);
 		assertEquals(0, entities.size());
 	}
-	
+
 	@Test
 	public void getChunkAt_DifferentLocations_DifferentChunks()
 	{
@@ -134,7 +134,7 @@ public class WorldMockTest
 		ChunkMock chunk2 = world.getChunkAt(1, 0);
 		assertNotEquals(chunk1, chunk2);
 	}
-	
+
 	@Test
 	public void getChunkAt_SameLocations_EqualsChunks()
 	{
@@ -143,7 +143,7 @@ public class WorldMockTest
 		ChunkMock chunk2 = world.getChunkAt(0, 0);
 		assertEquals(chunk1, chunk2);
 	}
-	
+
 	@Test
 	public void getName_NameSet_NameExactly()
 	{
@@ -151,7 +151,7 @@ public class WorldMockTest
 		world.setName("world name");
 		assertEquals("world name", world.getName());
 	}
-	
+
 }
 
 

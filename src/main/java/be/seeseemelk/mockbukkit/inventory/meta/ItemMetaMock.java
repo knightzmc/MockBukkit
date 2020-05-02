@@ -1,22 +1,30 @@
 package be.seeseemelk.mockbukkit.inventory.meta;
 
 import be.seeseemelk.mockbukkit.UnimplementedOperationException;
+import com.google.common.collect.Multimap;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.tags.CustomItemTagContainer;
 
 import java.util.*;
 
 import static java.util.Objects.nonNull;
 
-public class ItemMetaMock implements ItemMeta
+public class ItemMetaMock implements ItemMeta, Damageable
 {
+
     private String displayName = null;
     private List<String> lore = null;
     private Map<Enchantment, Integer> enchants = new HashMap<>();
     private Set<ItemFlag> hideFlags = EnumSet.noneOf(ItemFlag.class);
     private boolean unbreakable;
+    private int damage = 0;
 
     public ItemMetaMock()
     {
@@ -163,6 +171,24 @@ public class ItemMetaMock implements ItemMeta
         {
             return false;
         }
+    }
+
+    @Override
+    public boolean hasDamage()
+    {
+        return damage != 0;
+    }
+
+    @Override
+    public int getDamage()
+    {
+        return damage;
+    }
+
+    @Override
+    public void setDamage(int damage)
+    {
+        this.damage = damage;
     }
 
     @Override
@@ -391,6 +417,76 @@ public class ItemMetaMock implements ItemMeta
     public void setUnbreakable(boolean unbreakable)
     {
         this.unbreakable = unbreakable;
+    }
+
+    @Override
+    public boolean hasAttributeModifiers()
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers()
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public Collection<AttributeModifier> getAttributeModifiers(Attribute attribute)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public boolean addAttributeModifier(Attribute attribute, AttributeModifier modifier)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public void setAttributeModifiers(Multimap<Attribute, AttributeModifier> attributeModifiers)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public boolean removeAttributeModifier(Attribute attribute)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public boolean removeAttributeModifier(EquipmentSlot slot)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public boolean removeAttributeModifier(Attribute attribute, AttributeModifier modifier)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public CustomItemTagContainer getCustomTagContainer()
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
     }
 
 }

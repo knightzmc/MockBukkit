@@ -283,13 +283,6 @@ public abstract class InventoryMock implements org.bukkit.inventory.Inventory
     }
 
     @Override
-    public boolean contains(int materialId)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
     public boolean contains(Material material) throws IllegalArgumentException
     {
         // TODO Auto-generated method stub
@@ -298,13 +291,6 @@ public abstract class InventoryMock implements org.bukkit.inventory.Inventory
 
     @Override
     public boolean contains(ItemStack item)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
-    public boolean contains(int materialId, int amount)
     {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
@@ -332,13 +318,6 @@ public abstract class InventoryMock implements org.bukkit.inventory.Inventory
     }
 
     @Override
-    public HashMap<Integer, ? extends ItemStack> all(int materialId)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
     public HashMap<Integer, ? extends ItemStack> all(Material material) throws IllegalArgumentException
     {
         // TODO Auto-generated method stub
@@ -347,13 +326,6 @@ public abstract class InventoryMock implements org.bukkit.inventory.Inventory
 
     @Override
     public HashMap<Integer, ? extends ItemStack> all(ItemStack item)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
-    public int first(int materialId)
     {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
@@ -376,20 +348,14 @@ public abstract class InventoryMock implements org.bukkit.inventory.Inventory
     @Override
     public int firstEmpty()
     {
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] == null) {
+        for (int i = 0; i < items.length; i++)
+        {
+            if (items[i] == null)
+            {
                 return i;
             }
         }
         return -1;
-    }
-
-    @Override
-    public void remove(int materialId)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-
     }
 
     @Override
