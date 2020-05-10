@@ -32,7 +32,7 @@ public class MockBukkit
         }
         catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e)
         {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 
@@ -144,7 +144,7 @@ public class MockBukkit
         {
             // We don't want to have to add exception handling in a test to be able to run
             // it.
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 
@@ -166,7 +166,7 @@ public class MockBukkit
         }
         catch (IOException e)
         {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 
@@ -224,7 +224,7 @@ public class MockBukkit
         }
         finally
         {
-            if (mock != null && mock.getPluginManager() != null)
+            if (mock != null)
             {
                 mock.getPluginManager().disablePlugins();
                 mock.getPluginManager().unload();

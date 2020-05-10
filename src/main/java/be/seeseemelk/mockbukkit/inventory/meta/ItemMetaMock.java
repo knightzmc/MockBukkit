@@ -36,7 +36,7 @@ public class ItemMetaMock implements ItemMeta, Damageable
         this.displayName = meta.getDisplayName();
         if (meta.hasLore())
         {
-            this.lore = new ArrayList<>(meta.getLore());
+            this.lore = new ArrayList<>(Objects.requireNonNull(meta.getLore()));
         }
         this.enchants = new HashMap<>(meta.getEnchants());
         this.hideFlags = new HashSet<>(meta.getItemFlags());
@@ -46,6 +46,18 @@ public class ItemMetaMock implements ItemMeta, Damageable
     public ItemMetaMock(ItemMetaMock meta)
     {
         this((ItemMeta) meta);
+    }
+
+    public static ItemMetaMock deserialize(Map<String, Object> data)
+    {
+        String name = (String) data.get("name");
+        //noinspection unchecked
+        List<String> lore = (List<String>) data.get("lore");
+
+        ItemMetaMock mock = new ItemMetaMock();
+        mock.setDisplayName(name);
+        mock.setLore(lore);
+        return mock;
     }
 
     static boolean checkConflictingEnchants(Map<Enchantment, Integer> enchantments, Enchantment enchants)
@@ -296,8 +308,14 @@ public class ItemMetaMock implements ItemMeta, Damageable
     @Override
     public Map<String, Object> serialize()
     {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
+        final Map<String, Object> map = new LinkedHashMap<>();
+        if (hasDisplayName())
+            map.put("name", getDisplayName());
+        if (hasLore())
+            map.put("lore", lore);
+
+        // TODO More data
+        return map;
     }
 
     @Override
@@ -434,6 +452,13 @@ public class ItemMetaMock implements ItemMeta, Damageable
     }
 
     @Override
+    public void setAttributeModifiers(Multimap<Attribute, AttributeModifier> attributeModifiers)
+    {
+        // TODO Auto-generated method stub
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot)
     {
         // TODO Auto-generated method stub
@@ -449,13 +474,6 @@ public class ItemMetaMock implements ItemMeta, Damageable
 
     @Override
     public boolean addAttributeModifier(Attribute attribute, AttributeModifier modifier)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
-    public void setAttributeModifiers(Multimap<Attribute, AttributeModifier> attributeModifiers)
     {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
