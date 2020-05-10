@@ -22,25 +22,6 @@ public class ScoreboardMock implements Scoreboard
     }
 
     @Override
-    public Objective registerNewObjective(String name, String criteria, String displayName) throws IllegalArgumentException
-    {
-        ObjectiveMock objective = new ObjectiveMock(this, name, criteria);
-        objective.setDisplayName(displayName);
-        objectives.put(name, objective);
-        return objective;
-    }
-
-    @Override
-    public Objective registerNewObjective(String name, String criteria, String displayName, RenderType renderType) throws IllegalArgumentException
-    {
-        ObjectiveMock objective = new ObjectiveMock(this, name, criteria);
-        objective.setDisplayName(displayName);
-        objective.setRenderType(renderType);
-        objectives.put(name, objective);
-        return objective;
-    }
-
-    @Override
     public ObjectiveMock getObjective(String name) throws IllegalArgumentException
     {
         return objectives.get(name);

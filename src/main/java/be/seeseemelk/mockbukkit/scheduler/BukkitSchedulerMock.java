@@ -137,11 +137,6 @@ public class BukkitSchedulerMock implements BukkitScheduler
         return runTaskLater(plugin, task, 1L);
     }
 
-    @Override
-    public void runTask(Plugin plugin, Consumer<BukkitTask> task) throws IllegalArgumentException
-    {
-        runTaskLater(plugin, task, 1L);
-    }
 
     @Override
     public BukkitTask runTask(Plugin plugin, BukkitRunnable task) throws IllegalArgumentException
@@ -157,12 +152,6 @@ public class BukkitSchedulerMock implements BukkitScheduler
         return scheduledTask;
     }
 
-    @Override
-    public void runTaskLater(Plugin plugin, Consumer<BukkitTask> task, long delay) throws IllegalArgumentException
-    {
-        ScheduledTask scheduledTask = new ScheduledTask(id++, plugin, true, currentTick + delay, task);
-        tasks.add(scheduledTask);
-    }
 
     @Override
     public BukkitTask runTaskTimer(Plugin plugin, Runnable task, long delay, long period)
@@ -171,13 +160,6 @@ public class BukkitSchedulerMock implements BukkitScheduler
         RepeatingTask repeatingTask = new RepeatingTask(id++, plugin, true, currentTick + delay, period, (t) -> task.run());
         tasks.add(repeatingTask);
         return repeatingTask;
-    }
-
-    @Override
-    public void runTaskTimer(Plugin plugin, Consumer<BukkitTask> task, long delay, long period) throws IllegalArgumentException
-    {
-        RepeatingTask repeatingTask = new RepeatingTask(id++, plugin, true, currentTick + delay, period, task);
-        tasks.add(repeatingTask);
     }
 
     @Override
@@ -282,6 +264,15 @@ public class BukkitSchedulerMock implements BukkitScheduler
         }
     }
 
+    @Override
+    public void cancelAllTasks()
+    {
+        for (ScheduledTask task : tasks)
+        {
+            task.cancel();
+        }
+    }
+
 
     @Override
     public boolean isCurrentlyRunning(int taskId)
@@ -325,13 +316,6 @@ public class BukkitSchedulerMock implements BukkitScheduler
         return scheduledTask;
     }
 
-    @Override
-    public void runTaskAsynchronously(Plugin plugin, Consumer<BukkitTask> task) throws IllegalArgumentException
-    {
-        ScheduledTask scheduledTask = new ScheduledTask(id++, plugin, false, currentTick, task);
-        asyncTasksRunning.incrementAndGet();
-        pool.execute(scheduledTask.getRunnable());
-    }
 
     @Override
     public BukkitTask runTaskAsynchronously(Plugin plugin, BukkitRunnable task) throws IllegalArgumentException
@@ -357,15 +341,6 @@ public class BukkitSchedulerMock implements BukkitScheduler
     }
 
     @Override
-    public void runTaskLaterAsynchronously(Plugin plugin, Consumer<BukkitTask> task, long delay) throws IllegalArgumentException
-    {
-        ScheduledTask scheduledTask = new ScheduledTask(id++, plugin, false,
-                currentTick + delay, task);
-        tasks.add(scheduledTask);
-        asyncTasksQueued++;
-    }
-
-    @Override
     public BukkitTask runTaskLaterAsynchronously(Plugin plugin, BukkitRunnable task, long delay)
             throws IllegalArgumentException
     {
@@ -380,14 +355,6 @@ public class BukkitSchedulerMock implements BukkitScheduler
                 currentTick + delay, period, t -> new AsyncRunnable(task).run());
         tasks.add(scheduledTask);
         return scheduledTask;
-    }
-
-    @Override
-    public void runTaskTimerAsynchronously(Plugin plugin, Consumer<BukkitTask> task, long delay, long period) throws IllegalArgumentException
-    {
-        RepeatingTask scheduledTask = new RepeatingTask(id++, plugin, false,
-                currentTick + delay, period, task);
-        tasks.add(scheduledTask);
     }
 
     @Override

@@ -1,18 +1,15 @@
 package be.seeseemelk.mockbukkit.enchantment;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Objects;
 
 public class BasicEnchantment extends Enchantment
 {
 
     private final String name;
 
-    public BasicEnchantment(String name, NamespacedKey id)
+    public BasicEnchantment(String name, int id)
     {
         super(id);
         this.name = name;
@@ -75,14 +72,15 @@ public class BasicEnchantment extends Enchantment
 
         BasicEnchantment that = (BasicEnchantment) o;
 
-        return Objects.equals(getKey(), that.getKey());
+
+        return getId() == that.getId();
     }
 
     @Override
     public int hashCode()
     {
         int result = super.hashCode();
-        result = 31 * result + getKey().hashCode();
+        result = 31 * result + getId();
         return result;
     }
 }

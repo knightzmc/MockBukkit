@@ -50,8 +50,8 @@ public class WorldMockTest
 	{
 		WorldMock world = new WorldMock();
 		assertEquals(Material.AIR, world.getBlockAt(0, 10, 0).getType());
-		world.getBlockAt(0, 10, 0).setType(Material.OAK_WOOD);
-		assertEquals(Material.OAK_WOOD, world.getBlockAt(0, 10, 0).getType());
+		world.getBlockAt(0, 10, 0).setType(Material.WOOD);
+		assertEquals(Material.WOOD, world.getBlockAt(0, 10, 0).getType());
 	}
 
 	@Test

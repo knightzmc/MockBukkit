@@ -27,7 +27,7 @@ public class Enchantments
                 }
                 enchant.setAccessible(true);
                 Enchantment enchantmentWrapper = (Enchantment) enchant.get(null);
-                BasicEnchantment enchantment = new BasicEnchantment(enchant.getName().toLowerCase(), enchantmentWrapper.getKey());
+                BasicEnchantment enchantment = new BasicEnchantment(enchant.getName().toLowerCase(), enchantmentWrapper.getId());
                 Enchantment.registerEnchantment(enchantment);
             }
         }
@@ -46,7 +46,7 @@ public class Enchantments
     {
         try
         {
-            Field byId = Enchantment.class.getDeclaredField("byKey");
+            Field byId = Enchantment.class.getDeclaredField("byId");
             Field byName = Enchantment.class.getDeclaredField("byName");
 
             byId.setAccessible(true);

@@ -411,4 +411,33 @@ public abstract class InventoryMock implements org.bukkit.inventory.Inventory
         throw new UnimplementedOperationException();
     }
 
+    @Override
+    public boolean contains(int materialId)
+    {
+        return contains(Material.getMaterial(materialId));
+    }
+
+    @Override
+    public boolean contains(int materialId, int amount)
+    {
+        return contains(Material.getMaterial(materialId), amount);
+    }
+
+    @Override
+    public HashMap<Integer, ? extends ItemStack> all(int materialId)
+    {
+        return all(Material.getMaterial(materialId));
+    }
+
+    @Override
+    public int first(int materialId)
+    {
+        return first(Material.getMaterial(materialId));
+    }
+
+    @Override
+    public void remove(int materialId)
+    {
+        remove(Material.getMaterial(materialId));
+    }
 }

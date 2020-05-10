@@ -170,4 +170,11 @@ public class PlayerInventoryMock extends InventoryMock implements PlayerInventor
 		mainHandSlot = slot;
 	}
 
+	@Override
+	public int clear(int id, int data)
+	{
+		clear(id);
+		return 0;
+	}
+
 }

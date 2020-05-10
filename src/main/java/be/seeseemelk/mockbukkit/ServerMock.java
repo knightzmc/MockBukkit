@@ -19,7 +19,6 @@ import org.bukkit.*;
 import org.bukkit.BanList.Type;
 import org.bukkit.Warning.WarningState;
 import org.bukkit.advancement.Advancement;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.boss.*;
 import org.bukkit.command.*;
 import org.bukkit.entity.Entity;
@@ -29,7 +28,6 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.generator.ChunkGenerator.ChunkData;
 import org.bukkit.help.HelpMap;
 import org.bukkit.inventory.*;
-import org.bukkit.loot.LootTable;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.ServicesManager;
@@ -541,11 +539,12 @@ public class ServerMock implements Server
     }
 
     @Override
-    public MapView getMap(int id)
+    public MapView getMap(short id)
     {
         // TODO Auto-generated method stub
         throw new UnimplementedOperationException();
     }
+
 
     @Override
     public BukkitSchedulerMock getScheduler()
@@ -846,20 +845,6 @@ public class ServerMock implements Server
     }
 
     @Override
-    public ItemStack createExplorerMap(World world, Location location, StructureType structureType)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
-    public ItemStack createExplorerMap(World world, Location location, StructureType structureType, int radius, boolean findUnexplored)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
     public void reload()
     {
         // TODO Auto-generated method stub
@@ -1101,34 +1086,6 @@ public class ServerMock implements Server
     }
 
     @Override
-    public KeyedBossBar createBossBar(NamespacedKey key, String title, BarColor color, BarStyle style, BarFlag... flags)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
-    public Iterator<KeyedBossBar> getBossBars()
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
-    public KeyedBossBar getBossBar(NamespacedKey key)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
-    public boolean removeBossBar(NamespacedKey key)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
     public Entity getEntity(UUID uuid)
     {
         // TODO Auto-generated method stub
@@ -1149,61 +1106,6 @@ public class ServerMock implements Server
         throw new UnimplementedOperationException();
     }
 
-    @Override
-    public BlockData createBlockData(Material material)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
-    public BlockData createBlockData(Material material, Consumer<BlockData> consumer)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
-    public BlockData createBlockData(String data) throws IllegalArgumentException
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
-    public BlockData createBlockData(Material material, String data) throws IllegalArgumentException
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
-    public <T extends Keyed> Tag<T> getTag(String registry, NamespacedKey tag, Class<T> clazz)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
-    public <T extends Keyed> Iterable<Tag<T>> getTags(String registry, Class<T> clazz)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
-    public LootTable getLootTable(NamespacedKey key)
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
-
-    @Override
-    public List<Entity> selectEntities(CommandSender sender, String selector) throws IllegalArgumentException
-    {
-        // TODO Auto-generated method stub
-        throw new UnimplementedOperationException();
-    }
 
     @Override
     public UnsafeValues getUnsafe()
